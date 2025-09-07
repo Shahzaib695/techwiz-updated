@@ -1,0 +1,40 @@
+
+  .container {
+    /* max-width: 900px; */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .testimonial-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  
+  .star-rating {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .star {
+    cursor: pointer;
+    color: #ccc;
+    margin: 0 5px;
+  }
+  .star.selected {
+    color: gold;
+  }
+  
+  .swiper-slide {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  

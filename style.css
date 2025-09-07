@@ -1,0 +1,197 @@
+/* ——— وہی نیون‑گلاس CSS ——— */
+:root {
+  --brand-accent: #6c5ce7;
+  --brand-accent-hover: #5944d4;
+  --text-light: #fff;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-glow: rgba(255, 255, 255, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: url('elegance salon images/1cd7ac0aeb8ee591b4bf15ee1da25adb.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(22px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  color: var(--text-light);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 13px;
+  color: #ddd;
+  margin-bottom: 28px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.input-wrap {
+  background: var(--glass-glow);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 16px 14px 6px;
+  position: relative;
+}
+
+.input-wrap i {
+  margin-right: 10px;
+  color: #eee;
+  font-size: 14px;
+}
+
+.input-wrap input {
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  padding: 8px 0 5px;
+  color: white;
+}
+
+.input-wrap input::placeholder {
+  color: transparent;
+}
+
+.input-wrap label {
+  position: absolute;
+  left: 44px;
+  top: 15px;
+  color: #ccc;
+  font-size: 13px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.input-wrap input:focus + label,
+.input-wrap input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 38px;
+  font-size: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0 6px;
+  border-radius: 4px;
+  color: var(--brand-accent);
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--brand-accent);
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+  margin-top: 6px;
+}
+
+.btn:hover {
+  background: var(--brand-accent-hover);
+  box-shadow: 0 0 10px var(--brand-accent);
+}
+
+.bottom-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.bottom-text a {
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.bottom-text a:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Responsive for small screens */
+@media (max-width: 480px) {
+  .form-wrapper {
+    padding: 30px 20px;
+  }
+}
+
+/* 🪟 Optional: Glass table for admin/dashboard */
+.glass-table {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+
+/* ❌ Error Message Style with Animation */
+.error {
+  color: #fc5757;
+  font-size: 12px;
+  margin-top: 6px;
+  padding-left: 4px;
+  animation: fadeIn 0.3s ease-in-out;
+  text-shadow: 0 0 4px rgba(255, 107, 107, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
