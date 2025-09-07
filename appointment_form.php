@@ -16,8 +16,12 @@ if ($serviceRes && $serviceRes->num_rows > 0) {
     }
 }
 
+// Get designer id and name from GET
+$designer_id = isset($_GET['designer_id']) ? intval($_GET['designer_id']) : 0;
+$designer_name = isset($_GET['designer_name']) ? $_GET['designer_name'] : 'Unknown';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $employee_name = $_POST['employee'];
+    $designer_id = intval($_POST['designer_id']);
     $client_name = $_POST['client_name'];
     $client_phone = $_POST['client_phone'];
     $service = $_POST['service'];
@@ -32,20 +36,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!preg_match("/^03[0-9]{9}$/", $client_phone)) {
         $error_msg = 'Enter a valid 11-digit Pakistani phone number starting with 03.';
     } else {
-        // ✅ Check if slot already booked
-        $checkQuery = "SELECT * FROM appointments WHERE employee_name = ? AND date = ? AND time = ? AND status = 'Approved'";
+        // ✅ Check if slot already booked for this designer
+        $checkQuery = "SELECT * FROM appointments WHERE designer_id = ? AND date = ? AND time = ? AND status = 'Approved'";
         $stmt = $conn->prepare($checkQuery);
-        $stmt->bind_param("sss", $employee_name, $appointment_date, $appointment_time);
+        $stmt->bind_param("iss", $designer_id, $appointment_date, $appointment_time);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             $error_msg = 'Sorry, this slot is already booked and approved.';
         } else {
-            $insertQuery = "INSERT INTO appointments (employee_name, client_name, phone, service, date, time, amount, status)
+            $insertQuery = "INSERT INTO appointments (designer_id, client_name, phone, service, date, time, amount, status)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $insertStmt = $conn->prepare($insertQuery);
-            $insertStmt->bind_param("ssssssss", $employee_name, $client_name, $client_phone, $service, $appointment_date, $appointment_time, $amount, $status);
+            $insertStmt->bind_param("isssssss", $designer_id, $client_name, $client_phone, $service, $appointment_date, $appointment_time, $amount, $status);
             if ($insertStmt->execute()) {
                 $success = true;
             } else {
@@ -54,18 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-
-$emp_name = isset($_GET['emp_name']) ? $_GET['emp_name'] : 'Unknown';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Book Appointment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
+<meta charset="UTF-8">
+<title>Book Appointment</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
     body, html {
   margin: 0;
   padding: 0;
@@ -205,10 +207,11 @@ option {
   <div class="modal-box">
     <div class="modal-title"><i class="fas fa-calendar-check"></i> Book an Appointment</div>
     <form method="POST" id="appointmentForm">
+      <input type="hidden" name="designer_id" value="<?= $designer_id ?>">
       <div class="modal-form-grid">
         <div class="form-group">
-          <label for="employee"><i class="fas fa-user-tie"></i> Employee Name</label>
-          <input type="text" name="employee" id="employee" value="<?= htmlspecialchars($emp_name) ?>" readonly>
+          <label for="designer_name"><i class="fas fa-user-tie"></i> Designer Name</label>
+          <input type="text" name="designer_name" id="designer_name" value="<?= htmlspecialchars($designer_name) ?>" readonly>
         </div>
         <div class="form-group">
           <label for="client_name"><i class="fas fa-user"></i> Your Name</label>
@@ -222,17 +225,14 @@ option {
           <label for="service"><i class="fas fa-concierge-bell"></i> Service</label>
           <select name="service" id="service" required onchange="updateAmount()">
             <option value="" disabled selected>Select a service</option>
-<?php foreach ($services as $svc => $amt): ?>
-  <option value="<?= htmlspecialchars($svc) ?>" data-price="<?= $amt ?>"><?= htmlspecialchars($svc) ?></option>
-<?php endforeach; ?>
-
+            <?php foreach ($services as $svc => $amt): ?>
+              <option value="<?= htmlspecialchars($svc) ?>" data-price="<?= $amt ?>"><?= htmlspecialchars($svc) ?></option>
+            <?php endforeach; ?>
           </select>
         </div>
         <div class="form-group">
-          <label for="amount"><i class="fas fa-dollor-sign"></i> Amount</label>
-          <!-- <input type="number" name="amount" id="amount" readonly required> -->
-           <input type="text" name="amount" id="amount" readonly required>
-
+          <label for="amount"><i class="fas fa-dollar-sign"></i> Amount</label>
+          <input type="text" name="amount" id="amount" readonly required>
         </div>
         <div class="form-group">
           <label for="appointment_date"><i class="fas fa-calendar-alt"></i> Date</label>
@@ -250,37 +250,34 @@ option {
   </div>
 </div>
 
-<!-- ✅ SweetAlert2 Messages -->
 <?php if ($success): ?>
-  <script>
-    Swal.fire({
-      icon: 'success',
-      title: 'Appointment Booked!',
-      text: 'Your appointment is pending approval.',
-      confirmButtonColor: '#27ae60'
-    }).then(() => {
-      window.location.href = 'Detail.php';
-    });
-  </script>
+<script>
+Swal.fire({
+  icon: 'success',
+  title: 'Appointment Booked!',
+  text: 'Your appointment is pending approval.',
+  confirmButtonColor: '#27ae60'
+}).then(() => {
+  window.location.href = 'Detail.php';
+});
+</script>
 <?php elseif (!empty($error_msg)): ?>
-  <script>
-    Swal.fire({
-      icon: 'error',
-      title: 'Booking Failed',
-      text: '<?= $error_msg ?>',
-      confirmButtonColor: '#d63031'
-    });
-  </script>
+<script>
+Swal.fire({
+  icon: 'error',
+  title: 'Booking Failed',
+  text: '<?= $error_msg ?>',
+  confirmButtonColor: '#d63031'
+});
+</script>
 <?php endif; ?>
 
-<!-- ✅ JavaScript Validation & Script -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("appointment_date").setAttribute("min", today);
 
   const form = document.getElementById("appointmentForm");
-
   form.addEventListener("submit", function (e) {
     const name = document.getElementById("client_name");
     const phone = document.getElementById("client_phone");
@@ -289,7 +286,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const phonePattern = /^03[0-9]{9}$/;
 
     let error = '';
-
     if (!namePattern.test(name.value.trim())) {
       error = "Name must contain only letters and spaces (3-50 characters).";
     } else if (!phonePattern.test(phone.value.trim())) {
@@ -298,12 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (error) {
       e.preventDefault();
-      Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: error,
-        confirmButtonColor: '#d63031'
-      });
+      Swal.fire({ icon:'error', title:'Validation Error', text:error, confirmButtonColor:'#d63031' });
     }
   });
 });

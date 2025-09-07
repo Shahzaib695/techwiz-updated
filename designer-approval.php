@@ -49,7 +49,7 @@ $pendingDesigners = mysqli_query($conn, "SELECT id, name, email, created_at FROM
         <div class="logo">
             <img src="elegance salon images/logo.jpg" alt="Logo" />
         </div>
-        <nav>
+      <nav>
             <a href="admin.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
             <a href="Signup_view.php"><i class="fa-solid fa-user-check"></i> View Users</a>
             <a href="contect_view.php"><i class="fa-solid fa-envelope-circle-check"></i> Contacts</a>
@@ -59,8 +59,10 @@ $pendingDesigners = mysqli_query($conn, "SELECT id, name, email, created_at FROM
             <a href="admin_add_employee.php"><i class="fa-solid fa-user-plus"></i> Add Employee</a>
             <a href="admin_view_employee.php"><i class="fa-solid fa-users-viewfinder"></i> View Employees</a>
             <a href="appointment_service_add.php"><i class="fa-solid fa-handshake-angle"></i> Add Service</a>
-            <a href="designerapproval.php" style="background:rgba(255,255,255,0.15);"><i
+            <a href="designer-approval.php" style="background:rgba(255,255,255,0.15);"><i
                     class="fa-solid fa-users-viewfinder"></i> Approve New Designer</a>
+            <a href="designer-approval.php" style="background:rgba(255,255,255,0.15);"><i
+                    class="fa-solid fa-users-viewfinder"></i> Approve Designer Visibility</a>
             <a href="appointments_view.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
             <a href="admin_add_pakages.php"><i class="fa-solid fa-box-open"></i> Add Packages</a>
             <a href="pakages_view.php"><i class="fa-solid fa-boxes-stacked"></i> View Packages</a>

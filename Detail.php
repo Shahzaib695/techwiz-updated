@@ -722,10 +722,12 @@ $designersResult = $conn->query($designersQuery);
     <p><strong>Experience:</strong> <span id="modalExperience"></span></p>
     <p><strong>Available Days:</strong> <span id="modalDays"></span></p>
     <p><strong>Available Time:</strong> <span id="modalTime"></span></p>
-    <form action="appointment_form.php" method="get">
-      <input type="hidden" name="person_name" id="hiddenPersonName">
-      <button type="submit" class="book-btn">Confirm Appointment</button>
-    </form>
+   <form action="appointment_form.php" method="post">
+    <input type="hidden" name="designer_id" value="<?= $row['id'] ?>"> <!-- designer's user id -->
+    <input type="hidden" name="employee_name" value="<?= htmlspecialchars($row['name']) ?>">
+    <button type="submit">Confirm Appointment</button>
+</form>
+
   </div>
 </div>
 

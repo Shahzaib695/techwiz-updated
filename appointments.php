@@ -34,8 +34,8 @@ $notApproved = !$profile || $profile['status'] !== 'Approved';
 // Cancel appointment (only if approved)
 if (!$notApproved && isset($_GET['cancel_id'])) {
     $cancelId = intval($_GET['cancel_id']);
-    $stmt = $conn->prepare("DELETE FROM appointments WHERE id=? AND person_name=?");
-    $stmt->bind_param("is", $cancelId, $user['name']); // match the designer name
+    $stmt = $conn->prepare("DELETE FROM appointments WHERE id=? AND designer_id=?");
+    $stmt->bind_param("ii", $cancelId, $user['id']);
     $stmt->execute();
     header("Location: appointments.php");
     exit;
@@ -44,13 +44,12 @@ if (!$notApproved && isset($_GET['cancel_id'])) {
 // Fetch appointments (only if approved)
 if (!$notApproved) {
     $appointmentsQuery = $conn->prepare("
-        SELECT a.id, a.date, a.time, u.name AS client_name, u.email AS client_email
+        SELECT a.id, a.date, a.time, a.client_name, a.phone, a.service, a.amount
         FROM appointments a
-        JOIN users u ON a.user_id = u.id
-        WHERE a.person_name=?
+        WHERE a.designer_id=?
         ORDER BY a.date DESC, a.time DESC
     ");
-    $appointmentsQuery->bind_param("s", $user['name']); // match the designer name
+    $appointmentsQuery->bind_param("i", $user['id']);
     $appointmentsQuery->execute();
     $appointments = $appointmentsQuery->get_result();
 }
@@ -110,7 +109,7 @@ footer span{color:var(--brand-accent);font-weight:500;}
   <nav>
     <a href="designer-dashboard.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
     <a href="appointments.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
-    <a href="add-design.php"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a>
+    <!-- <a href="add-design.php"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a> -->
     <a href="reviews.php"><i class="fa-solid fa-star"></i> Reviews</a>
     <a href="profile.php"><i class="fa-solid fa-user"></i> Profile</a>
     <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
@@ -137,8 +136,10 @@ footer span{color:var(--brand-accent);font-weight:500;}
         <?php if ($appointments->num_rows > 0): ?>
           <table>
             <tr>
-              <th>Client</th>
-              <th>Email</th>
+              <th>Client Name</th>
+              <th>Phone</th>
+              <th>Service</th>
+              <th>Amount</th>
               <th>Date</th>
               <th>Time</th>
               <th>Action</th>
@@ -146,7 +147,9 @@ footer span{color:var(--brand-accent);font-weight:500;}
             <?php while($row = $appointments->fetch_assoc()): ?>
               <tr>
                 <td><?= htmlspecialchars($row['client_name']) ?></td>
-                <td><?= htmlspecialchars($row['client_email']) ?></td>
+                <td><?= htmlspecialchars($row['phone']) ?></td>
+                <td><?= htmlspecialchars($row['service']) ?></td>
+                <td><?= htmlspecialchars($row['amount']) ?></td>
                 <td><?= htmlspecialchars($row['date']) ?></td>
                 <td><?= htmlspecialchars($row['time']) ?></td>
                 <td><a class="cancel-btn" href="?cancel_id=<?= $row['id'] ?>" onclick="return confirm('Cancel this appointment?')">Cancel</a></td>

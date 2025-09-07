@@ -1,66 +1,88 @@
 <?php
 session_start();
 require "db.php";
-function valid_email($e)
-{
-  return filter_var($e, FILTER_VALIDATE_EMAIL);
+
+// ✅ Validation functions
+function valid_email($e) {
+    return filter_var($e, FILTER_VALIDATE_EMAIL);
 }
-function valid_pass($p)
-{
-  return preg_match('/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/', $p);
+
+function valid_pass($p) {
+    return preg_match('/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/', $p);
 }
+
 $emailError = $passwordError = "";
 $invalidLogin = false;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['login'])) {
-  $email = trim($_POST['email']);
-  $pass = $_POST['password'];
-  $isValid = true;
-  if (!valid_email($email)) {
-    $emailError = "Invalid email address.";
-    $isValid = false;
-  }
-  if (!valid_pass($pass)) {
-    $passwordError = "Password must be 8+ chars, with 1 capital letter & 1 number.";
-    $isValid = false;
-  }
-  if ($isValid) {
-    // Admin Login (hardcoded)
-    if ($email === "admin@admin.com" && $pass === "Admin123") {
-      $_SESSION['email'] = $email;
-      $_SESSION['role'] = "admin";
-      $_SESSION['time'] = time();
-      echo "<script>alert('Welcome $email'); window.location.href='admin.php';</script>";
-      exit();
+    $email = trim($_POST['email']);
+    $pass = $_POST['password'];
+    $isValid = true;
+
+    // ✅ Validate email
+    if (!valid_email($email)) {
+        $emailError = "Invalid email address.";
+        $isValid = false;
     }
-    // User/Designer login
-    $email_safe = mysqli_real_escape_string($conn, $email);
-    $query = "SELECT * FROM users WHERE email = '$email_safe'";
-    $result = mysqli_query($conn, $query);
 
-    if ($result && mysqli_num_rows($result) > 0) {
-      $row = mysqli_fetch_assoc($result);
-      if (password_verify($pass, $row['password'])) {
+    // ✅ Validate password
+    if (!valid_pass($pass)) {
+        $passwordError = "Password must be 8+ chars, with 1 capital letter & 1 number.";
+        $isValid = false;
+    }
 
-
-        // ⚡ Designer check
-        if ($row['role'] === 'designer' && $row['is_approved'] == 0) {
-          // redirect to pending page instead of logging in
-          header("Location: pending.php?email=" . urlencode($email));
-          exit();
-        } else {
-          $_SESSION['email'] = $email;
-          $_SESSION['role'] = $row['role'];
-          $_SESSION['time'] = time();
-          echo "<script>location.href='home.php';</script>";
-          exit();
+    if ($isValid) {
+        // ✅ Admin login (hardcoded)
+        if ($email === "admin@admin.com" && $pass === "Admin123") {
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = "admin";
+            $_SESSION['time'] = time();
+            echo "<script>alert('Welcome $email'); window.location.href='admin.php';</script>";
+            exit();
         }
-      }
+
+        // ✅ User/Designer login
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email=? LIMIT 1");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            if (password_verify($pass, $row['password'])) {
+
+                // ⚡ Designer not approved check
+                if ($row['role'] === 'designer' && $row['is_approved'] == 0) {
+                    header("Location: pending.php?email=" . urlencode($email));
+                    exit();
+                }
+
+                // ✅ Set session
+                $_SESSION['email'] = $email;
+                $_SESSION['role'] = $row['role'];
+                $_SESSION['time'] = time();
+
+                // ✅ Redirect based on role
+                if ($row['role'] === 'designer') {
+                    header("Location: designer-dashboard.php");
+                    exit();
+                } elseif ($row['role'] === 'user') {
+                    header("Location: home.php");
+                    exit();
+                } else {
+                    // fallback
+                    header("Location: home.php");
+                    exit();
+                }
+            }
+        }
+
+        // ❌ Invalid login
+        $invalidLogin = true;
     }
-    $invalidLogin = true;
-  }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

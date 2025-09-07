@@ -121,25 +121,28 @@ $designers = $conn->query("
 <body>
   <div class="sidebar">
     <div class="logo"><img src="decorevistaimages/logo.png" alt="Logo"></div>
-    <nav>
-      <a href="admin.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-      <a href="Signup_view.php"><i class="fa-solid fa-user-check"></i> View Users</a>
-      <a href="contect_view.php"><i class="fa-solid fa-envelope-circle-check"></i> Contacts</a>
-      <a href="admin_add_product3.php"><i class="fa-solid fa-cart-shopping"></i> Add Products</a>
-      <a href="view_products_cards.php"><i class="fa-solid fa-box-open"></i> Product Cards</a>
-      <a href="admin_order.php"><i class="fa-solid fa-file-invoice-dollar"></i> Orders</a>
-      <a href="admin_add_employee.php"><i class="fa-solid fa-user-plus"></i> Add Employee</a>
-      <a href="admin_view_employee.php"><i class="fa-solid fa-users-viewfinder"></i> View Employees</a>
-      <a href="appointment_service_add.php"><i class="fa-solid fa-handshake-angle"></i> Add Service</a>
-      <a href="appointments_view.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
-      <a href="admin_add_pakages.php"><i class="fa-solid fa-box-open"></i> Add Packages</a>
-      <a href="pakages_view.php"><i class="fa-solid fa-boxes-stacked"></i> View Packages</a>
-      <a href="pakages_order_view.php"><i class="fa-solid fa-truck-arrow-right"></i> Packages Order</a>
-      <a href="admin-approve-designers.php"><i class="fa-solid fa-user-tie"></i> Approve Designers</a>
-      <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-      </a>
-    </nav>
+ <nav>
+            <a href="admin.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="Signup_view.php"><i class="fa-solid fa-user-check"></i> View Users</a>
+            <a href="contect_view.php"><i class="fa-solid fa-envelope-circle-check"></i> Contacts</a>
+            <a href="admin_add_product3.php"><i class="fa-solid fa-cart-shopping"></i> Add Products</a>
+            <a href="view_products_cards.php"><i class="fa-solid fa-box-open"></i> Product Cards</a>
+            <a href="admin_order.php"><i class="fa-solid fa-file-invoice-dollar"></i> Orders</a>
+            <a href="admin_add_employee.php"><i class="fa-solid fa-user-plus"></i> Add Employee</a>
+            <a href="admin_view_employee.php"><i class="fa-solid fa-users-viewfinder"></i> View Employees</a>
+            <a href="appointment_service_add.php"><i class="fa-solid fa-handshake-angle"></i> Add Service</a>
+            <a href="designerapproval.php" style="background:rgba(255,255,255,0.15);"><i
+                    class="fa-solid fa-users-viewfinder"></i> Approve New Designer</a>
+            <a href="admin-designer-approval.php" style="background:rgba(255,255,255,0.15);"><i
+                    class="fa-solid fa-users-viewfinder"></i> Approve Designer Visibility</a>
+            <a href="appointments_view.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+            <a href="admin_add_pakages.php"><i class="fa-solid fa-box-open"></i> Add Packages</a>
+            <a href="pakages_view.php"><i class="fa-solid fa-boxes-stacked"></i> View Packages</a>
+            <a href="pakages_order_view.php"><i class="fa-solid fa-truck-arrow-right"></i> Packages Order</a>
+            <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </a>
+        </nav>
   </div>
 
   <div class="main-content">

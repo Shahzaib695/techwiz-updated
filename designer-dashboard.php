@@ -174,10 +174,10 @@ footer span{color:var(--brand-accent);font-weight:500;}
   <div class="logo"><img src="decorevistaimages/logo.png" alt="Logo"></div>
   <nav>
     <a href="designer-dashboard.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-    <a href="#"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
-    <a href="#"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a>
-    <a href="#"><i class="fa-solid fa-star"></i> Reviews</a>
-    <a href="#"><i class="fa-solid fa-user"></i> Profile</a>
+    <a href="appointments.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+    <!-- <a href="add-designs.php"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a> -->
+    <a href="reviews.php"><i class="fa-solid fa-star"></i> Reviews</a>
+    <a href="profile.php"><i class="fa-solid fa-user"></i> Profile</a>
     <a href="logout.php" onclick="return confirm('Are you sure you want to logout?')"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
   </nav>
 </div>
@@ -232,10 +232,10 @@ footer span{color:var(--brand-accent);font-weight:500;}
 <?php elseif($profile['status'] === 'Approved'): ?>
   <!-- Full Dashboard Cards -->
   <div class="cards">
-    <div class="card"><i class="fa-solid fa-calendar-check"></i><h3>Appointments</h3><p>View all appointments</p></div>
-    <div class="card"><i class="fa-solid fa-pen-to-square"></i><h3>Designs</h3><p>Add or manage designs</p></div>
-    <div class="card"><i class="fa-solid fa-star"></i><h3>Reviews</h3><p>Check reviews</p></div>
-    <div class="card"><i class="fa-solid fa-user"></i><h3>Profile</h3><p>Update your profile</p></div>
+    <div class="card"><i class="fa-solid fa-calendar-check"></i><h3>Appointments</h3><a href="appointments.php"></a><p>View all appointments</p></div>
+    <div class="card"><i class="fa-solid fa-pen-to-square"></i><h3>Designs</h3><a href="add-design.php"></a><p>Add or manage designs</p></div>
+    <div class="card"><i class="fa-solid fa-star"></i><h3>Reviews</h3><a href="reviews.php"></a><p>Check reviews</p></div>
+    <div class="card"><i class="fa-solid fa-user"></i><h3>Profile</h3><a href="profile.php"></a><p>Update your profile</p></div>
   </div>
 <?php endif; ?>
 

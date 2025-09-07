@@ -123,7 +123,7 @@ footer span{color:var(--brand-accent);font-weight:500;}
   <nav>
     <a href="designer-dashboard.php"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
     <a href="appointments.php"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
-    <a href="add-design.php"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a>
+    <!-- <a href="add-design.php"><i class="fa-solid fa-pen-to-square"></i> Add Designs</a> -->
     <a href="reviews.php"><i class="fa-solid fa-star"></i> Reviews</a>
     <a href="profile.php"><i class="fa-solid fa-user"></i> Profile</a>
     <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
