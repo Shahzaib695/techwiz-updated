@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2025 at 11:56 PM
+-- Generation Time: Sep 07, 2025 at 02:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
+  `designer_id` int(11) NOT NULL,
   `employee_name` varchar(100) NOT NULL,
   `client_name` varchar(100) NOT NULL,
   `phone` varchar(20) NOT NULL,
@@ -44,21 +45,79 @@ CREATE TABLE `appointments` (
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `employee_name`, `client_name`, `phone`, `service`, `amount`, `date`, `time`, `status`, `created_at`) VALUES
-(1, 'Moin', 'Fahad', '03708541533', 'Massage', 2500.00, '2025-07-26', '20:57:00', 'Approved', '2025-07-26 15:58:01'),
-(2, 'Faiz', 'Farrukh', '03708541533', 'Facial', 2000.00, '2025-07-26', '20:58:00', 'Rejected', '2025-07-26 15:58:38'),
-(3, 'Taimoor Bhai', 'Zaki Bhai', '03708541533', 'Haircut', 1500.00, '2025-07-26', '20:59:00', 'Approved', '2025-07-26 15:59:19'),
-(4, 'Fahad', 'Zaki Bhai', '03708541533', 'Manicure', 1200.00, '2025-07-26', '21:02:00', 'Approved', '2025-07-26 16:03:05'),
-(5, 'Faiz', 'Farrukh', '03708541533', 'Manicure', 1200.00, '2025-07-27', '22:08:00', 'Approved', '2025-07-27 17:08:54'),
-(6, 'Zeeshan Bhai', '#', '78546123982', 'Massage', 2500.00, '2025-07-27', '22:09:00', 'Approved', '2025-07-27 17:09:54'),
-(7, 'Taimoor Bhai', '#', '78546123982', 'Haircut', 1500.00, '2025-07-28', '03:30:00', 'Pending', '2025-07-28 22:30:52'),
-(8, 'Faiz', '$', '03708541533', 'Massage', 2500.00, '2025-07-29', '03:36:00', 'Pending', '2025-07-28 22:36:31'),
-(9, 'Taimoor Bhai', '$', '03708541533', 'Haircut', 1500.00, '2025-07-29', '03:52:00', 'Pending', '2025-07-28 22:52:55'),
-(10, 'Taimoor Bhai', 'Muhammad Farrukh', '03708541533', 'Facial', 2000.00, '2025-07-29', '04:06:00', 'Pending', '2025-07-28 23:07:24'),
-(11, 'Zeeshan Bhai', 'Zaki Bhai', '03708541533', 'Massage', 2500.00, '2025-07-29', '07:27:00', 'Pending', '2025-07-29 02:27:32'),
-(12, 'Taimoor Bhai', 'Fahad', '03708541533', 'Haircuts', 125.00, '2025-07-29', '07:56:00', 'Pending', '2025-07-29 02:57:24'),
-(13, 'Taimoor Bhai', 'Fahad', '03457812691', 'Skin Fade', 155.00, '2025-07-29', '08:14:00', 'Approved', '2025-07-29 03:14:36'),
-(14, 'Faiz', 'Fahad', '03457812691', 'Head Massage', 60.00, '2025-07-29', '08:43:00', 'Pending', '2025-07-29 03:43:47');
+INSERT INTO `appointments` (`id`, `designer_id`, `employee_name`, `client_name`, `phone`, `service`, `amount`, `date`, `time`, `status`, `created_at`) VALUES
+(1, 0, 'Moin', 'Fahad', '03708541533', 'Massage', 2500.00, '2025-07-26', '20:57:00', 'Approved', '2025-07-26 15:58:01'),
+(2, 0, 'Faiz', 'Farrukh', '03708541533', 'Facial', 2000.00, '2025-07-26', '20:58:00', 'Rejected', '2025-07-26 15:58:38'),
+(3, 0, 'Taimoor Bhai', 'Zaki Bhai', '03708541533', 'Haircut', 1500.00, '2025-07-26', '20:59:00', 'Approved', '2025-07-26 15:59:19'),
+(4, 0, 'Fahad', 'Zaki Bhai', '03708541533', 'Manicure', 1200.00, '2025-07-26', '21:02:00', 'Approved', '2025-07-26 16:03:05'),
+(5, 0, 'Faiz', 'Farrukh', '03708541533', 'Manicure', 1200.00, '2025-07-27', '22:08:00', 'Approved', '2025-07-27 17:08:54'),
+(6, 0, 'Zeeshan Bhai', '#', '78546123982', 'Massage', 2500.00, '2025-07-27', '22:09:00', 'Approved', '2025-07-27 17:09:54'),
+(7, 0, 'Taimoor Bhai', '#', '78546123982', 'Haircut', 1500.00, '2025-07-28', '03:30:00', 'Pending', '2025-07-28 22:30:52'),
+(8, 0, 'Faiz', '$', '03708541533', 'Massage', 2500.00, '2025-07-29', '03:36:00', 'Pending', '2025-07-28 22:36:31'),
+(9, 0, 'Taimoor Bhai', '$', '03708541533', 'Haircut', 1500.00, '2025-07-29', '03:52:00', 'Pending', '2025-07-28 22:52:55'),
+(10, 0, 'Taimoor Bhai', 'Muhammad Farrukh', '03708541533', 'Facial', 2000.00, '2025-07-29', '04:06:00', 'Pending', '2025-07-28 23:07:24'),
+(11, 0, 'Zeeshan Bhai', 'Zaki Bhai', '03708541533', 'Massage', 2500.00, '2025-07-29', '07:27:00', 'Pending', '2025-07-29 02:27:32'),
+(12, 0, 'Taimoor Bhai', 'Fahad', '03708541533', 'Haircuts', 125.00, '2025-07-29', '07:56:00', 'Pending', '2025-07-29 02:57:24'),
+(13, 0, 'Taimoor Bhai', 'Fahad', '03457812691', 'Skin Fade', 155.00, '2025-07-29', '08:14:00', 'Approved', '2025-07-29 03:14:36'),
+(14, 0, 'Faiz', 'Fahad', '03457812691', 'Head Massage', 60.00, '2025-07-29', '08:43:00', 'Pending', '2025-07-29 03:43:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appointments2`
+--
+
+CREATE TABLE `appointments2` (
+  `id` int(11) NOT NULL,
+  `designer_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `appointment_date` date NOT NULL,
+  `appointment_time` time NOT NULL,
+  `status` enum('Pending','Confirmed','Completed') DEFAULT 'Pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designer_profiles`
+--
+
+CREATE TABLE `designer_profiles` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `bio` text NOT NULL,
+  `expertise` varchar(100) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `day` varchar(20) DEFAULT NULL,
+  `from_time` time DEFAULT NULL,
+  `to_time` time DEFAULT NULL,
+  `status` enum('Pending','Approved','Rejected') DEFAULT 'Pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `designer_profiles`
+--
+
+INSERT INTO `designer_profiles` (`id`, `user_id`, `name`, `bio`, `expertise`, `image`, `day`, `from_time`, `to_time`, `status`, `created_at`) VALUES
+(1, 37, 'shahzaib', 'hyello hi bye', 'fala', 'uploads/designers/1757231329_cat-4.png', 'Monday', '16:48:00', '00:48:00', 'Approved', '2025-09-07 07:48:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designer_reviews`
+--
+
+CREATE TABLE `designer_reviews` (
+  `id` int(11) NOT NULL,
+  `designer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` between 1 and 5),
+  `review` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -232,7 +291,7 @@ INSERT INTO `package_orders` (`id`, `client_name`, `phone`, `package`, `price`, 
 (13, 'Muhammad Farrukh', '03708541533', 'Men’s Signature Grooming', 0.00, '2025-07-29 01:57:22', 'farrokh984@gmail.com', 'Orangi town data nagar karachi pakistan', 'Fahad', 'Pending', 4, 145),
 (14, 'Muhammad Fahad', '03708541533', ' Summer Fresh Men’s Deal', 167.00, '2025-07-29 02:26:34', 'Fahad@Hafiz.com', 'Orangi town data nagar karachi pakistan', 'Faizan Bhai', 'Pending', NULL, NULL),
 (15, 'Muhammad Fahad', '03708541533', 'Trendy Haircut Styling', 135.00, '2025-08-03 13:29:26', 'Fahad@Hafiz.com', 'Orangi town data nagar karachi pakistan', 'Angela Kwang', 'Pending', NULL, NULL),
-(16, 'Muhammad Fahad', '03708541533', 'Royal Beard Facial Care', 60.00, '2025-08-03 13:52:34', 'Fahad@1.com', 'Orangi town data nagar karachi pakistan', 'Alexander Rowland', 'Pending', NULL, NULL);
+(16, 'Muhammad Fahad', '03708541533', 'Royal Beard Facial Care', 60.00, '2025-08-03 13:52:34', 'Fahad@1.com', 'Orangi town data nagar karachi pakistan', 'Alexander Rowland', 'Approved', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -284,6 +343,33 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `qty`, `image`) VA
 (33, 'Coffee Table', 'Modern glass-top coffee table with metal base.', 12000.00, 15, 'uploads/1757191503_59427afc0956413865d8b2a763400b9d.jpg'),
 (35, 'Bookshelf', '5-tier wooden bookshelf perfect for home and office use.', 18000.00, 12, 'uploads/1757191478_istockphoto-1339845062-612x612.jpg'),
 (38, 'Shoe Rack', 'Wooden shoe rack with 4 shelves and a compact design.', 8000.00, 20, 'uploads/1757191425_ac81ff058f86b637992a43a44fd7199d.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `target_type` enum('employee','designer') NOT NULL,
+  `target_id` int(11) NOT NULL,
+  `rating` tinyint(4) NOT NULL CHECK (`rating` between 1 and 5),
+  `comment` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `target_type`, `target_id`, `rating`, `comment`, `created_at`) VALUES
+(1, 38, 'designer', 1, 2, 'hate it', '2025-09-07 09:42:25'),
+(2, 38, 'employee', 13, 1, 'hatr', '2025-09-07 10:02:21'),
+(3, 37, 'designer', 1, 1, 'hate it', '2025-09-07 11:02:22'),
+(4, 37, 'designer', 1, 1, 'hi', '2025-09-07 11:33:00'),
+(5, 37, 'designer', 37, 5, 'satisfied', '2025-09-07 11:44:29');
 
 -- --------------------------------------------------------
 
@@ -358,6 +444,8 @@ CREATE TABLE `users` (
   `name` varchar(80) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `role` enum('user','designer','admin') NOT NULL DEFAULT 'user',
+  `is_approved` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -365,20 +453,22 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`) VALUES
-(22, 'farrukh', 'farrokh984@gmail.com', '$2y$10$LeIhESpKhgysVAntEbws9egIqCNh244Dd.w1yLgibjYvR6D6CCvBe', '2025-07-06 16:32:54'),
-(24, 'Muhammad Farrukh', 'farrokh984@aptech.com', '$2y$10$CtwNy3SBSqE3YZql4p/PceeS1syqZE2lrW8dpYVu9wLx5C6TKWWLu', '2025-07-06 21:23:11'),
-(26, 'fahad', 'fahad@Hafiz.com', '$2y$10$2cYOkViFkQcjwnJxJRWNyuTApDc//qKSf9Ytw3oYoXR675YIOtMhm', '2025-07-06 22:46:28'),
-(27, 'Muhammad Farrukh', 'farrokh489@aptech.com', '$2y$10$CeSkdKXpA8A.Z.FywmY2eOYyMCGTS35OUI5sC4Dq.7sLQ9/7mfvN6', '2025-07-07 20:37:23'),
-(28, 'fahad', 'fahad@aptech.com', '$2y$10$Shfo0b2yb1BCJEuEw1tHvOaoicRfke5ynsLM.SinaLGkAZUbTUksm', '2025-07-07 20:39:45'),
-(29, 'Farrokh', 'farrokh@latop.com', '$2y$10$tPphqGJtjklcQHwbD2ikTuxlxONjNce3CtCtTzhEKAPDi1Wggg2Pe', '2025-07-08 22:06:58'),
-(30, 'arman', 'arman@gmail.com', '$2y$10$1WojGzi07EuxXFkBG1H.bub.LKcDLF5py6/FA0wv/I5Vpx7r47D0G', '2025-07-23 15:03:23'),
-(31, 'saim', 'saim@gmail.com', '$2y$10$Ru6uec1zr3Lt6XTGvQ8C2ef/Z2yL3MQtQpcOlyzZ0UJ/2tIUtCSry', '2025-07-25 13:35:27'),
-(32, 'faiz', 'faiz@fun.com', '$2y$10$SppYVNbS.gh.vz8luebaVOoQDPSKJ5tf./BKWz/5ARLiqAsK/6Hji', '2025-07-27 21:01:42'),
-(33, 'fahad', 'Fahad@head.com', '$2y$10$II1BPEOmYmSYLZ3s18hOCuKaKCqYZB90f9CE/AaW5Ul2ALMz4qxcS', '2025-07-27 21:04:27'),
-(34, 'Farrokh', 'farrokh@laptop.com', '$2y$10$KOsWxc8W5eXKlXmjD/MkAeYt145fAEJSJ.PNj1mOsLQXHe6eRuBhu', '2025-07-27 21:05:47'),
-(35, 'Ahmed raza', 'ahmed@raza.com', '$2y$10$/ejKQ8jcOnaD8KBq5zgJFePG7BWX/IWxjz3GTSV8Opom0uNC5VH/a', '2025-08-03 13:58:13'),
-(36, 'asif', 'asifkhan12@gmail.com', '$2y$10$eRx8Cg2rORUuQ2dTlWKc3eLaUEtsyl5UEjC3bXNTHuqPHJnEjW4Wa', '2025-09-05 12:23:37');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `is_approved`, `created_at`) VALUES
+(22, 'farrukh', 'farrokh984@gmail.com', '$2y$10$LeIhESpKhgysVAntEbws9egIqCNh244Dd.w1yLgibjYvR6D6CCvBe', 'user', 1, '2025-07-06 16:32:54'),
+(24, 'Muhammad Farrukh', 'farrokh984@aptech.com', '$2y$10$CtwNy3SBSqE3YZql4p/PceeS1syqZE2lrW8dpYVu9wLx5C6TKWWLu', 'user', 1, '2025-07-06 21:23:11'),
+(26, 'fahad', 'fahad@Hafiz.com', '$2y$10$2cYOkViFkQcjwnJxJRWNyuTApDc//qKSf9Ytw3oYoXR675YIOtMhm', 'user', 1, '2025-07-06 22:46:28'),
+(27, 'Muhammad Farrukh', 'farrokh489@aptech.com', '$2y$10$CeSkdKXpA8A.Z.FywmY2eOYyMCGTS35OUI5sC4Dq.7sLQ9/7mfvN6', 'user', 1, '2025-07-07 20:37:23'),
+(28, 'fahad', 'fahad@aptech.com', '$2y$10$Shfo0b2yb1BCJEuEw1tHvOaoicRfke5ynsLM.SinaLGkAZUbTUksm', 'user', 1, '2025-07-07 20:39:45'),
+(29, 'Farrokh', 'farrokh@latop.com', '$2y$10$tPphqGJtjklcQHwbD2ikTuxlxONjNce3CtCtTzhEKAPDi1Wggg2Pe', 'user', 1, '2025-07-08 22:06:58'),
+(30, 'arman', 'arman@gmail.com', '$2y$10$1WojGzi07EuxXFkBG1H.bub.LKcDLF5py6/FA0wv/I5Vpx7r47D0G', 'user', 1, '2025-07-23 15:03:23'),
+(31, 'saim', 'saim@gmail.com', '$2y$10$Ru6uec1zr3Lt6XTGvQ8C2ef/Z2yL3MQtQpcOlyzZ0UJ/2tIUtCSry', 'user', 1, '2025-07-25 13:35:27'),
+(32, 'faiz', 'faiz@fun.com', '$2y$10$SppYVNbS.gh.vz8luebaVOoQDPSKJ5tf./BKWz/5ARLiqAsK/6Hji', 'user', 1, '2025-07-27 21:01:42'),
+(33, 'fahad', 'Fahad@head.com', '$2y$10$II1BPEOmYmSYLZ3s18hOCuKaKCqYZB90f9CE/AaW5Ul2ALMz4qxcS', 'user', 1, '2025-07-27 21:04:27'),
+(34, 'Farrokh', 'farrokh@laptop.com', '$2y$10$KOsWxc8W5eXKlXmjD/MkAeYt145fAEJSJ.PNj1mOsLQXHe6eRuBhu', 'user', 1, '2025-07-27 21:05:47'),
+(35, 'Ahmed raza', 'ahmed@raza.com', '$2y$10$/ejKQ8jcOnaD8KBq5zgJFePG7BWX/IWxjz3GTSV8Opom0uNC5VH/a', 'user', 1, '2025-08-03 13:58:13'),
+(36, 'asif', 'asifkhan12@gmail.com', '$2y$10$eRx8Cg2rORUuQ2dTlWKc3eLaUEtsyl5UEjC3bXNTHuqPHJnEjW4Wa', 'user', 1, '2025-09-05 12:23:37'),
+(37, 'designer', 'designer@gmail.com', '$2y$10$mPMH8BNNjdwpacGj/LMzie9kQLLNBEu9H4Z1O1iqPcGNxt/AayZKS', 'designer', 1, '2025-09-07 06:23:36'),
+(38, 'user', 'user@gmail.com', '$2y$10$.AqeZtnw6ydQsW/tlHK4Ce3EFa3fpTWVwkWKdC9ugDiQAvllfNaJC', 'user', 1, '2025-09-07 09:28:18');
 
 -- --------------------------------------------------------
 
@@ -452,6 +542,29 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `appointments2`
+--
+ALTER TABLE `appointments2`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `designer_id` (`designer_id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexes for table `designer_profiles`
+--
+ALTER TABLE `designer_profiles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `designer_reviews`
+--
+ALTER TABLE `designer_reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `designer_id` (`designer_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
@@ -487,6 +600,13 @@ ALTER TABLE `pakages_service`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `services`
@@ -532,6 +652,24 @@ ALTER TABLE `appointments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `appointments2`
+--
+ALTER TABLE `appointments2`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `designer_profiles`
+--
+ALTER TABLE `designer_profiles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `designer_reviews`
+--
+ALTER TABLE `designer_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
@@ -568,6 +706,12 @@ ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
@@ -583,7 +727,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `users1`
@@ -602,10 +746,36 @@ ALTER TABLE `users2`
 --
 
 --
+-- Constraints for table `appointments2`
+--
+ALTER TABLE `appointments2`
+  ADD CONSTRAINT `appointments2_ibfk_1` FOREIGN KEY (`designer_id`) REFERENCES `designer_profiles` (`id`),
+  ADD CONSTRAINT `appointments2_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `designer_profiles`
+--
+ALTER TABLE `designer_profiles`
+  ADD CONSTRAINT `designer_profiles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `designer_reviews`
+--
+ALTER TABLE `designer_reviews`
+  ADD CONSTRAINT `designer_reviews_ibfk_1` FOREIGN KEY (`designer_id`) REFERENCES `designer_profiles` (`id`),
+  ADD CONSTRAINT `designer_reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Constraints for table `package_orders`
 --
 ALTER TABLE `package_orders`
   ADD CONSTRAINT `fk_service` FOREIGN KEY (`service_id`) REFERENCES `pakages_service` (`id`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
